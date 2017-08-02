@@ -30,7 +30,7 @@ The libraries used by pg-kinesis-bridge respect the normal environment variables
 This can be used as a simple way to pass configuration. e.g.
 
 ```sh
-PGHOST=localhost PGPORT=1234 PGDATABASE=postgres AWS_PROFILE=work AWS_SDK_LOAD_CONFIG=y pg-kinesis-bridge
+PGHOST=localhost PGPORT=1234 PGDATABASE=postgres AWS_PROFILE=work AWS_SDK_LOAD_CONFIG=y pg-kinesis-bridge -c CHANNEL -s STREAMNAME
 ```
 
 
