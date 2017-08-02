@@ -17,13 +17,14 @@ let args; {
 	});
 	parser.addArgument([ '-s', '--streamName' ], {
 		required: true,
+		action: "append",
 		help: 'Kinesis stream name'
 	});
 	args = parser.parseArgs();
 }
 
 let pkb = new pg_kinesis_bridge.PgKinesisBridge();
-pkb.addStream(args.streamName);
+args.streamName.forEach((streamName) => pkb.addStream(streamName));
 args.channel.forEach((channel) => pkb.addChannel(channel));
 pkb.connect()
 	.catch((e) => {
