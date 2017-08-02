@@ -1,0 +1,42 @@
+{
+	"name": "pg-kinesis-bridge",
+	"description": "Listen for events from PostgreSQL and send them to AWS Kinesis",
+	"keywords": [
+		"pg",
+		"postgres",
+		"postgresql",
+		"listen",
+		"notify",
+		"kinesis",
+		"bridge"
+	],
+	"author": "Daurnimator <quae@daurnimator.com>",
+	"homepage": "https://github.com/daurnimator/pg-kinesis-bridge",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/daurnimator/pg-kinesis-bridge.git"
+	},
+	"bugs": {
+		"url" : "https://github.com/daurnimator/pg-kinesis-bridge/issues"
+	},
+	"license": "MIT",
+	"main": "./pg-kinesis-bridge.js",
+	"bin": {
+		"pg-kinesis-bridge": "./bin/pg-kinesis-bridge.js"
+	},
+	"scripts": {
+		"start": "node ./bin/pg-kinesis-bridge.js",
+		"lint": "jshint **/*.js"
+	},
+	"dependencies": {
+		"argparse": "^1.0.9",
+		"aws-sdk": "^2.94.0",
+		"pg": "^7.0.2"
+	},
+	"devDependencies": {
+		"jshint": "^2.9.5"
+	},
+	"jshintConfig": {
+		"esversion": 6
+	}
+}
