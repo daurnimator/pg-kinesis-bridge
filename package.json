@@ -17,7 +17,7 @@
 		"url": "https://github.com/daurnimator/pg-kinesis-bridge.git"
 	},
 	"bugs": {
-		"url" : "https://github.com/daurnimator/pg-kinesis-bridge/issues"
+		"url": "https://github.com/daurnimator/pg-kinesis-bridge/issues"
 	},
 	"license": "MIT",
 	"main": "./pg-kinesis-bridge.js",
