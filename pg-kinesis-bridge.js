@@ -1,7 +1,7 @@
 const pg = require("pg");
 const AWS = require("aws-sdk");
 
-exports.run = function(pg_config, kinesis_config, channel, streamName) {
+exports.run = function(pg_config, kinesis_config, channel, streamName, SequenceNumber) {
 	const client = new pg.Client(pg_config);
 	const kinesis = new AWS.Kinesis(kinesis_config);
 
@@ -9,11 +9,15 @@ exports.run = function(pg_config, kinesis_config, channel, streamName) {
 		let params = {
 			StreamName: streamName,
 			PartitionKey: msg.channel,
-			Data: msg.payload
+			Data: msg.payload,
+			SequenceNumberForOrdering: SequenceNumber
 		};
+
 		kinesis.putRecord(params, function(err, data) {
 			if (err) {
 				console.error(err, err.stack);
+			} else {
+				SequenceNumber = data.SequenceNumber;
 			}
 		});
 	};
