@@ -72,10 +72,3 @@ PgKinesisBridge.prototype.connect = function() {
 	}
 	return promise.then(() => this.pgclient.query("commit"));
 };
-
-exports.run = function(pg_config, kinesis_config, channel, streamName, SequenceNumber) {
-	let pkb = new PgKinesisBridge(pg_config, kinesis_config);
-	pkb.addStream(streamName, SequenceNumber);
-	pkb.addChannel(channel);
-	return pkb.connect();
-};
