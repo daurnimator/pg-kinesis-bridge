@@ -48,5 +48,3 @@ PGHOST=localhost PGPORT=1234 PGDATABASE=postgres AWS_PROFILE=work AWS_SDK_LOAD_C
 ## Implementation Notes
 
 The PostgreSQL notification channel name is used as the Kinesis `PartitionKey`.
-
-Currently only the Kinesis `PutRecord` API call is in use, which can be subject to rate limiting. For higher throughput support for `PutRecords` should be added.
