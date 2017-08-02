@@ -12,6 +12,7 @@ let args; {
 	});
 	parser.addArgument([ '-c', '--channel' ], {
 		required: true,
+		action: "append",
 		help: 'PostgreSQL channel name'
 	});
 	parser.addArgument([ '-s', '--streamName' ], {
@@ -21,7 +22,10 @@ let args; {
 	args = parser.parseArgs();
 }
 
-pg_kinesis_bridge.run(void 0, void 0, args.channel, args.streamName)
+let pkb = new pg_kinesis_bridge.PgKinesisBridge();
+pkb.addStream(args.streamName);
+args.channel.forEach((channel) => pkb.addChannel(channel));
+pkb.connect()
 	.catch((e) => {
 		console.error(e);
 		process.exit(1);
