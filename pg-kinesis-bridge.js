@@ -60,15 +60,15 @@ PgKinesisBridge.prototype.addStream = function(streamName, SequenceNumber) {
 
 PgKinesisBridge.prototype.connect = function() {
 	/* Set up DB connection */
-	let promise = this.pgclient.connect()
+	return this.pgclient.connect()
 		.then(() => {
 			this.pgclient.on("notification", this._onnotify.bind(this));
 			this.connected = true;
+			/* Subscribe to channels */
+			let promise = this.pgclient.query("begin");
+			for (let channel in this.channels) {
+				promise = promise.then(() => this._listen(channel));
+			}
+			return promise.then(() => this.pgclient.query("commit"));
 		})
-	/* Subscribe to channels */
-		.then(() => this.pgclient.query("begin"));
-	for (let channel in this.channels) {
-		promise = promise.then(() => this._listen(channel));
-	}
-	return promise.then(() => this.pgclient.query("commit"));
 };
