@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"start": "node ./bin/pg-kinesis-bridge.js",
-		"lint": "jshint **/*.js"
+		"lint": "jshint *.js */*.js"
 	},
 	"dependencies": {
 		"argparse": "^1.0.9",
