@@ -32,12 +32,13 @@ PgKinesisBridge.prototype._onnotify = function(msg) {
 	}
 };
 
+/* Produce a "quoted identifier" https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS */
+/* Quoted identifiers can contain any character, except the character with code zero. (To include a double quote, write two double quotes.) */
 const escape_sql_identifier = function(s) {
-	/* Produce a "quoted identifier" https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS */
-	/* Quoted identifiers can contain any character, except the character with code zero. (To include a double quote, write two double quotes.) */
-	if (typeof s != "string" || s.length < 1 || s.indexOf("\0") != -1) throw TypeError("invalid identifier");
-	s = s.replace('"', '""');
-	return '"' + s + '"'
+	if (typeof s != "string" || s.length < 1 || s.indexOf("\0") != -1)
+		throw TypeError("invalid identifier");
+
+	return '"' + s.replace('"', '""') + '"';
 };
 
 PgKinesisBridge.prototype._listen = function(channel) {
@@ -70,5 +71,5 @@ PgKinesisBridge.prototype.connect = function() {
 				promise = promise.then(() => this._listen(channel));
 			}
 			return promise.then(() => this.pgclient.query("commit"));
-		})
+		});
 };
